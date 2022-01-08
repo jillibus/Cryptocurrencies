@@ -237,7 +237,6 @@ plot_df.hvplot.scatter(
 
 # Summary
 
-
-Thank you for your time and let me know if you wish to see any additional data.
+With the crypto_data.csv data we were provided, we were able to clean up the data and decern it down to 577 tradable cryptocurrencies.  From there, using the K-Means algorithm, we were able to group the coins into 4 groups, as seen in our scatter plots.
 
 Jill Hughes
