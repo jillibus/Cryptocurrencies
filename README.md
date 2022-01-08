@@ -1,25 +1,13 @@
 # Cryptocurrencies
 
-![logo](images/module_18_logo.png)
+![logo](images/module-18-logo.png)
 
 # Overview
           
-Credit risk is an inherently unbalanced classification problem, as good loans easily outnumber risky loans. Therefore, a bank or lending company will need to employ different techniques to train and evaluate models with unbalanced classes. 
 
-In this project, I will be using several different methods to calculate Credit Risk and return which algorithm was the best at Predicting the Credit Risk of the Data Set I chose.  I will be using a credit card dataset from LendingClub, a peer-to-peer lending services company.  I will use tools to _Over Sample_ the data, _Under Sample_ the data, using machine learning techniques to predict whether the algorithm, with the data set chosen, produces a high percentage of true outcomes. 
-
-For Deliverable 1, I will use Resampling Models to Predict Credit Risk.
-
-For Deliverable 2, I will use the SMOTEENN Algorithm to Predict Credit Risk.
-
-For Deliverable 3, I will use the Ensemble Classifiers to Predict Credit Risk.
-
-The results of the above, will allow me to provide an analysis of which machine language algorithm worked best for Predicting the Outcome for Credit Risk. 
-
-<img src="images/ml_algorithms.png" />
 
 # Resources
-* Data Sources: LoanStats_2019Q1.csv
+* Data Sources: crypto_data.csv
 * Software: Jupyter Notebook, Python 3.7, Pandas
 
 # GitHub Application Link
@@ -36,16 +24,49 @@ Data preprocessing is used in both database-driven and rules-based applications.
 
 In our project we performed _Data Preprocessing_ by perfomring the following steps:
 *  In the **crypto_df** 
-  *  All cryptocurrencies that are not being traded are removed.
-  *  The IsTrading column is dropped
-  *  All the rows that have at least one null value are removed.
-  *  All the rows that do not have coins being mined are removed.
-  *  The CoinName column is dropped.
-* A new DataFrame is created that stores all cryptocurrency names from the CoinName column and retains the index from the crypto_df DataFrame.
+    *  All cryptocurrencies that are not being traded are removed.
+    *  The IsTrading column is dropped
+    *  All the rows that have at least one null value are removed.
+    *  All the rows that do not have coins being mined are removed.
+    *  The CoinName column is dropped.
+* A new DataFrame, **cryptonames_df**, is created that stores all cryptocurrency names from the CoinName column and retains the index from the crypto_df DataFrame.
 * The get_dummies() method is used to create variables for the text features, which are then stored in a new DataFrame, X.
 * The features from the X DataFrame have been standardized using the StandardScaler fit_transform() function.
 
+```
+# Keep the rows where coins are mined.
+crypto_df.drop(crypto_df[crypto_df.TotalCoinsMined <= 0].index, inplace=True)
+print(crypto_df.shape)
+crypto_df.head(10)
+```
+<img src="images/crypto_df.cleaned.png"/>
 
+___
+```
+# Create a new DataFrame that holds only the cryptocurrencies names.
+cryptonames_df = crypto_df[['CoinName']]
+print(crypto_df.shape)
+cryptonames_df.head()
+```
+<img src="images/cryptonames_df.head.png"/>
+
+---
+```
+# Use get_dummies() to create variables for text features.
+X = pd.get_dummies(crypto_df, columns=['Algorithm', 'ProofType'])
+print(X.shape)
+X.head()
+```
+<img src="images/X.head.png"/>
+
+---
+```
+# Standardize the data with StandardScaler().
+scaler = StandardScaler()
+
+crypto_scaled = scaler.fit_transform(X)
+print(crypto_scaled[0:5])
+```
 
 ## For Deliverable 2: Reducing Data Dimensions Using PCA
 Using the Principal Component Analysis (PCA) Algorithm, I will reduce the dimensions of the X DataFrame to 3 principal components and place these dimensions into a new DataFrame.
