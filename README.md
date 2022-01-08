@@ -22,7 +22,7 @@ Preprocessing involves both data validation and data imputation. The goal of dat
 
 Data preprocessing is used in both database-driven and rules-based applications. In machine learning (ML) processes, data preprocessing is critical for ensuring large datasets are formatted in such a way that the data they contain can be interpreted and parsed by learning algorithms. (https://www.techopedia.com/definition/14650/data-preprocessing)
 
-In our project we performed _Data Preprocessing_ by perfomring the following steps:
+In our project we performed _Data Preprocessing_ by performing the following steps:
 *  In the **crypto_df** 
     *  All cryptocurrencies that are not being traded are removed.
     *  The IsTrading column is dropped
@@ -216,7 +216,7 @@ plot_df['CoinName'] = clustered_df['CoinName']
 # Add the "Class" column from the clustered_df DataFrame to the new DataFrame. 
 plot_df['Class'] = clustered_df['Class']
 
-# Print the shame of the tradable_df
+# Print the shape of the tradable_df
 print(plot_df.shape)
 plot_df.head(10)
 ```
