@@ -239,4 +239,19 @@ plot_df.hvplot.scatter(
 
 With the crypto_data.csv data we were provided, we were able to clean up the data and decern it down to 577 tradable cryptocurrencies.  From there, using the K-Means algorithm, we were able to group the coins into 4 groups, as seen in our scatter plots.
 
+If we dig a little closer into the 4 groups, you will see the folling:
+**Group 0:**  has 314 CoinNames
+**Group 1:**  has 259 CoinNames
+**Group 2:**  has 1   CoinNames  _BitTorrent_
+**Group 3:**  has 3   CoinNames  _LitecoinCash_, _Waves_, _BiblePay_
+
+_BitTorrent_ TotalCoinSupply and TotalCoinsMined - is showing up on the Scatter Plot as a (1,1) - so quite a bit as an outlier of any other of the 576 cryptocurrencies.
+_BiblePay_, _LitecoinCash_, _Waves_ - all show numbers that are way below 1 in the TotalCoinSupply and TotalCoinsMined - so these are either new to the cryptocurrency arena, or only intended for a local area.
+
+That leaves **Group 0 & 1** -  I would recommend to the _Advisory Services Team_ to focus on those 2 groups and look and see what the trend of those CoinNames have been doing and make their recommendations for our customers from those groups.
+
+Let me know if you have any questions or need more information.
+
+Thank you for your time.
+
 Jill Hughes
