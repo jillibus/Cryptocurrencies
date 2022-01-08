@@ -88,11 +88,58 @@ pcs_df.head(10)
 <img src="images/pcs_df.nopredictions.png"/>
 
 ## For Deliverable 3: Clustering Cryptocurrencies Using K-means
-Using the K-means algorithm, I will create an _Elbow Curve_ using the _hvPlot_ to find the best value for _K_ from the **pcs_df** DataFrame.  Once that is found, I will use the K-means algorithm and use the K value found to predict the number of K clusters for the cryptocurrencies' data.
+Using the K-means algorithm:
 
+* I will create an _Elbow Curve_ using the _hvPlot_ to find the best value for _K_ from the **pcs_df** DataFrame.  
+* Once that is found, I will use the K-means algorithm and use the K value found to predict the number of K clusters for the cryptocurrencies' data.
+
+```
+inertia = []
+k = list(range(1, 11))
+
+# Calculate the inertia for the range of k values
+for i in k:
+    km = KMeans(n_clusters=i, random_state=0)
+    km.fit(pcs_df)
+    inertia.append(km.inertia_)
+
+# Create the Elbow Curve using hvPlot
+elbow_data = {"k": k, "inertia": inertia}
+df_elbow = pd.DataFrame(elbow_data)
+df_elbow.hvplot.line(x="k", y="inertia", xticks=k, title="Elbow Curve")
+```
+<img src="images/elbow_curve.png"/>
+
+---
+```
+# Initialize the K-Means model
+model = KMeans(n_clusters=4, random_state=0)
+
+# Fit the model
+model.fit(pcs_df)
+
+# Predict clusters
+predictions = model.predict(pcs_df)
+predictions
+```
+<img src="images/predictions.png"/>
+
+---
+```
+# Add the predicted class columns
+pcs_df["Class"] = model.labels_
+pcs_df.head()
+```
+<img src="images/pcs_df.head.png"/>
+
+---
+
+ 
 * I will create a new DataFrame, **clustered_df**, which concatenates the **crypto_df** with the **pcs_df**, the index will be the same as the **crypto_df**.
 * I will then add the CoinName column from the **cryptonames_df** to the **clustered_df**.
 * Lastly, I will add a new column, **clustered_df['Class']** which holds the predictions (model.labels_)
+
+```
 
 <img src=          />
 
