@@ -3,8 +3,9 @@
 ![logo](images/module-18-logo.png)
 
 # Overview
-          
+An Advisory Services Team at your company, a prominent investment bank, is interested in offering a new cryptocurrency investment portfolio for its customers.  You have been tasked to create a report that includes what cryptocurrencies are on the trading market and how they could be grouped to create a classification system for this new investment.
 
+Since there are so many types of cryptocurrencies out there and there is no known output for what your manager, Martha, is looking for the method of your analysis will be Unsupervised Machine Learning.  You will work with Martha to group the cryptocurrencies into clustering algorithm and she will present the findings to the Advisory Services Team in data visualizations.       
 
 # Resources
 * Data Sources: crypto_data.csv
