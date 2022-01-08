@@ -191,12 +191,48 @@ clustered_df.hvplot.table(columns=['CoinName','Algorithm','ProofType','TotalCoin
 ```
 # Print the total number of tradable cryptocurrencies
 print(f'There are {len(clustered_df)} tradable cryptocurrencies.')
-
+```
+```
 There are 577 tradable cryptocurrencies.
 ```
 ---
+```
+# Scaling data to create the scatter plot with tradable cryptocurrencies.
+scaler = MinMaxScaler()
 
+scaled_data = scaler.fit_transform(clustered_df[['TotalCoinSupply','TotalCoinsMined']])
 
+scaled_data
+```
+```
+# Create a new DataFrame that has the scaled data with the clustered_df DataFrame index.
+plot_df = pd.DataFrame(
+    data=scaled_data, columns=['TotalCoinSupply','TotalCoinsMined'],
+    index=clustered_df.index)
+
+# Add the "CoinName" column from the clustered_df DataFrame to the new DataFrame.
+plot_df['CoinName'] = clustered_df['CoinName']
+
+# Add the "Class" column from the clustered_df DataFrame to the new DataFrame. 
+plot_df['Class'] = clustered_df['Class']
+
+# Print the shame of the tradable_df
+print(plot_df.shape)
+plot_df.head(10)
+```
+<img src="images/plot_df.head.png"/>
+
+---
+```
+# Create a hvplot.scatter plot using x="TotalCoinsMined" and y="TotalCoinSupply".
+plot_df.hvplot.scatter(
+    x='TotalCoinsMined',
+    y='TotalCoinSupply',
+    hover_cols=['CoinName'],
+    by='Class'
+)
+```
+<img src="images/plot_df.png"/>
 
 # Summary
 
