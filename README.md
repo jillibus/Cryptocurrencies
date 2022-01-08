@@ -90,8 +90,11 @@ pcs_df.head(10)
 ## For Deliverable 3: Clustering Cryptocurrencies Using K-means
 Using the K-means algorithm:
 
-* I will create an _Elbow Curve_ using the _hvPlot_ to find the best value for _K_ from the **pcs_df** DataFrame.  
-* Once that is found, I will use the K-means algorithm and use the K value found to predict the number of K clusters for the cryptocurrencies' data.
+* Create an _Elbow Curve_ using the _hvPlot_ to find the best value for _K_ from the **pcs_df** DataFrame.  
+* Once that is found, use the K-means algorithm and then use the _K_ value found to predict the number of _K_ clusters for the cryptocurrencies' data. 
+* Create a new DataFrame, **clustered_df**, which concatenates the **crypto_df** with the **pcs_df**, the index will be the same as the **crypto_df**.
+* Add the CoinName column from the **cryptonames_df** to the **clustered_df**.
+* Add a new column, **clustered_df['Class']** which holds the predictions (model.labels_)
 
 ```
 inertia = []
@@ -133,23 +136,67 @@ pcs_df.head()
 <img src="images/pcs_df.head.png"/>
 
 ---
-
- 
-* I will create a new DataFrame, **clustered_df**, which concatenates the **crypto_df** with the **pcs_df**, the index will be the same as the **crypto_df**.
-* I will then add the CoinName column from the **cryptonames_df** to the **clustered_df**.
-* Lastly, I will add a new column, **clustered_df['Class']** which holds the predictions (model.labels_)
-
 ```
+# Create a new DataFrame including predicted clusters and cryptocurrencies features.
+# Concatentate the crypto_df and pcs_df DataFrames on the same columns.
+clustered_df = crypto_df.join(pcs_df)
 
-<img src=          />
+#  Add a new column, "CoinName" to the clustered_df DataFrame that holds the names of the cryptocurrencies. 
+clustered_df['CoinName'] = cryptonames_df['CoinName']
 
+#  Add a new column, "Class" to the clustered_df DataFrame that holds the predictions.
+clustered_df['Class'] = model.labels_
+
+# Print the shape of the clustered_df
+print(clustered_df.shape)
+clustered_df.head(10)
+```
+<img src="images/clustered_df.head.png"/>
 
 ## For Deliverable 4: Visualizing Cryptocurrencies Result
 For this deliverable, I will demonstrate, visually, using scatter plots, the distinct groups that correspond to the 3 principal components (PC 1, PC 2, PC 3) as well as a table with all of the currently tradable cryptocurrencies using the _hvplot.table()_ function.
 
-<img src=             />
+* Creating 3D Scatter Plot with Clusters
+* Create a table with tradable cryptocurrencies using _hvplot.table()_
+* The total number of tradable cryptocurrencies is printed.
+* A DataFrame, **plot_df** is created that contains the **clustered_df** DataFrame index, the scaled data, and the CoinName and Class columns
+* A hvplot scatter plot, with the X-axis = 'TotalCoinsMined' and Y-axis = 'TotalCoinSupply' and the data is ordered by 'Class'
 
-<img src=            />
+```
+fig = px.scatter_3d(
+    clustered_df,
+    x="PC 1",
+    y="PC 2",
+    z="PC 3",
+    color="Class",
+    symbol="Class",
+    width=800,
+    hover_name="CoinName",
+    hover_data=["Algorithm"]
+)
+fig.update_layout(legend=dict(x=0, y=1))
+fig.show()
+```
+<img src="images/clustered_df.plot.png"/>
+
+---
+```
+# Create a table with tradable cryptocurrencies.
+clustered_df.hvplot.table(columns=['CoinName','Algorithm','ProofType','TotalCoinSupply','TotalCoinsMined','Class']
+                         )
+```
+<img src="images/clustered_df.table.png"/>
+
+---
+```
+# Print the total number of tradable cryptocurrencies
+print(f'There are {len(clustered_df)} tradable cryptocurrencies.')
+
+There are 577 tradable cryptocurrencies.
+```
+---
+
+
 
 # Summary
 
